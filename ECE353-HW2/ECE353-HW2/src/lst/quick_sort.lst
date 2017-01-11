@@ -1,0 +1,178 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 export           quickSortASM
+    2 00000000                 AREA             FLASH, CODE, READONLY
+    3 00000000                 ALIGN
+    4 00000000         
+    5 00000000         
+    6 00000000         
+    7 00000000         ;*******************************************************
+                       ***********************
+    8 00000000         ; Description
+    9 00000000         ; Uses Quick Sort to sort an array of signed 16-bit numb
+                       ers.
+   10 00000000         ; Parameters
+   11 00000000         ; R0 - Array Address
+   12 00000000         ; R1 - Left Index
+   13 00000000         ; R2 - Right Index
+   14 00000000         ;*******************************************************
+                       ***********************
+   15 00000000         quickSortASM
+   16 00000000 E92D 4870       PUSH             {R4-R6, FP, LR}
+   17 00000004         
+   18 00000004         ; Register Usage
+   19 00000004         ; R0 - Array Address
+   20 00000004         ; R1 - Left Index
+   21 00000004         ; R2 - Right Index
+   22 00000004         ; R3 - Pivot Index
+   23 00000004         ; R4 - Pivot Value
+   24 00000004         ; R5 - Current Left Value
+   25 00000004         ; R6 - Current Right Value
+   26 00000004         
+   27 00000004         ; Check to see that the size is >= 1
+   28 00000004 EBA2 0501       SUB              R5, R2, R1
+   29 00000008 2D01            CMP              R5, #1
+   30 0000000A DB30            BLT              quickSort_end
+   31 0000000C         
+   32 0000000C 46EB            MOV              FP, SP
+   33 0000000E         ; Allocate Local Variables
+   34 0000000E         ; FP - 0 :   first Index
+   35 0000000E         ; FP - 4:   last Index
+   36 0000000E         
+   37 0000000E B082            SUB              SP, SP, #8
+   38 00000010         
+   39 00000010         ; Calculate the Pivot Index as the middle of
+   40 00000010         ; the left and right indicies
+   41 00000010 EBA2 0301       SUB              R3, R2, R1
+   42 00000014 EA4F 0353       LSR              R3, #1
+   43 00000018 440B            ADD              R3, R1, R3
+   44 0000001A         
+   45 0000001A         ; Store the first and last index
+   46 0000001A F84B 1C04       STR              R1, [FP, #-4]
+   47 0000001E F84B 2C08       STR              R2, [FP, #-8]
+   48 00000022         
+   49 00000022         ; Find the Pivot Value
+   50 00000022 F830 4013       LDRH             R4, [R0, R3 , LSL #1]
+   51 00000026         
+   52 00000026         whileLoop
+   53 00000026 4291            CMP              R1, R2
+   54 00000028 DC14            BGT              whileLoop_end
+   55 0000002A         
+   56 0000002A         ; Check if the left element is less than the pivot
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   57 0000002A F830 5011       LDRH             R5, [R0, R1, LSL #1]
+   58 0000002E 42A5            CMP              R5, R4
+   59 00000030 BFB8 1C49       ADDLT            R1, R1, #1
+   60 00000034 DBF7            BLT              whileLoop
+   61 00000036         
+   62 00000036         ; Check if the right element is greater than the pivot
+   63 00000036 F830 6012       LDRH             R6, [R0, R2, LSL #1]
+   64 0000003A 42A6            CMP              R6, R4
+   65 0000003C BFC8 1E52       SUBGT            R2, R2, #1
+   66 00000040 DCF1            BGT              whileLoop
+   67 00000042         
+   68 00000042         ; Swap the values
+   69 00000042 F820 5012       STRH             R5, [R0, R2, LSL #1]
+   70 00000046 F820 6011       STRH             R6, [R0, R1, LSL #1]
+   71 0000004A F101 0101       ADD              R1, R1, #1
+   72 0000004E F1A2 0201       SUB              R2, R2, #1
+   73 00000052 E7E8            B                whileLoop
+   74 00000054         
+   75 00000054         whileLoop_end
+   76 00000054         
+   77 00000054         ; save R0-R3
+   78 00000054 B40F            PUSH             {R0-R3}
+   79 00000056         
+   80 00000056         ; Load the first index
+   81 00000056 F85B 1C04       LDR              R1, [FP, #-4]
+   82 0000005A         
+   83 0000005A         ; Call quick_sort recursively
+   84 0000005A F7FF FFFE       BL               quickSortASM
+   85 0000005E         
+   86 0000005E         ; Restore R0-R3
+   87 0000005E BC0F            POP              {R0-R3}
+   88 00000060         
+   89 00000060         
+   90 00000060         ; save R0-R3
+   91 00000060 B40F            PUSH             {R0-R3}
+   92 00000062         
+   93 00000062         ; Load the last index
+   94 00000062 F85B 2C08       LDR              R2, [FP, #-8]
+   95 00000066         
+   96 00000066         ; Call quick_sort recursively
+   97 00000066 F7FF FFFE       BL               quickSortASM
+   98 0000006A         
+   99 0000006A         ; Restore R0-R3
+  100 0000006A BC0F            POP              {R0-R3}
+  101 0000006C         
+  102 0000006C B002            ADD              SP, SP, #8
+  103 0000006E         
+  104 0000006E         quickSort_end
+  105 0000006E E8BD 8870       POP              {R4-R6, FP, PC}
+  106 00000072                 END
+Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
+\quick_sort.d -o.\obj\quick_sort.o -I"D:\Box Sync\ECE353\HW2\TestBench\RTE" -IC
+:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123 --predefine="__EV
+AL SETA 1" --predefine="__MICROLIB SETA 1" --list=.\lst\quick_sort.lst quick_so
+rt.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 2 in file quick_sort.s
+   Uses
+      None
+Comment: FLASH unused
+quickSortASM 00000000
+
+Symbol: quickSortASM
+   Definitions
+      At line 15 in file quick_sort.s
+   Uses
+      At line 1 in file quick_sort.s
+      At line 84 in file quick_sort.s
+      At line 97 in file quick_sort.s
+
+quickSort_end 0000006E
+
+Symbol: quickSort_end
+   Definitions
+      At line 104 in file quick_sort.s
+   Uses
+      At line 30 in file quick_sort.s
+Comment: quickSort_end used once
+whileLoop 00000026
+
+Symbol: whileLoop
+   Definitions
+      At line 52 in file quick_sort.s
+   Uses
+      At line 60 in file quick_sort.s
+      At line 66 in file quick_sort.s
+      At line 73 in file quick_sort.s
+
+whileLoop_end 00000054
+
+Symbol: whileLoop_end
+   Definitions
+      At line 75 in file quick_sort.s
+   Uses
+      At line 54 in file quick_sort.s
+Comment: whileLoop_end used once
+5 symbols
+338 symbols in table

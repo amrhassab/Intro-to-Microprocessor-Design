@@ -1,0 +1,12 @@
+.\obj\gpioportf.o: gpioPortF.c
+.\obj\gpioportf.o: gpioPortF.h
+.\obj\gpioportf.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdbool.h
+.\obj\gpioportf.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+.\obj\gpioportf.o: C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123\TM4C123.h
+.\obj\gpioportf.o: C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123\TM4C123GH6PM.h
+.\obj\gpioportf.o: C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include\core_cm4.h
+.\obj\gpioportf.o: C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include\core_cmInstr.h
+.\obj\gpioportf.o: C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include\core_cmFunc.h
+.\obj\gpioportf.o: C:\Keil_v5\ARM\Pack\ARM\CMSIS\3.20.4\CMSIS\Include\core_cm4_simd.h
+.\obj\gpioportf.o: C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123\system_TM4C123.h
+.\obj\gpioportf.o: ../include/sysctrl.h

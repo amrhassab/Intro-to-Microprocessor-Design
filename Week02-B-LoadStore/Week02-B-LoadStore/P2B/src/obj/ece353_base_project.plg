@@ -1,0 +1,61 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+I:\my docs\ECE 353\Week02-B-LoadStore\Week02-B-LoadStore\P2B\src\ece353_base_project.uvproj
+Project File Date:  09/08/2014
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+assembling ece353_main.s...
+ece353_main.s(26): warning: A1865W: '#' not seen before constant expression
+assembling startup_TM4C123.s...
+compiling system_TM4C123.c...
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(13): error:  #5: cannot open source input file "TM4C123.h": No such file or directory
+Target not created
+Rebuild target 'Target 1'
+assembling ece353_main.s...
+ece353_main.s(26): warning: A1865W: '#' not seen before constant expression
+assembling startup_TM4C123.s...
+compiling system_TM4C123.c...
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(13): error:  #10: "#" not expected here
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(13): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(421): warning:  #12-D: parsing restarts here after previous syntax error
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(431): error:  #77-D: this declaration has no storage class or type specifier
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(431): error:  #65: expected a ";"
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(453): warning:  #12-D: parsing restarts here after previous syntax error
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(454): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(455): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(457): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(458): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(460): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(461): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(463): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(464): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(466): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(467): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(469): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(470): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(472): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(473): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(475): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(476): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(478): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(479): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(481): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(482): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(484): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(485): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(487): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(488): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(490): error:  #169: expected a declaration
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(491): error:  #169: expected a declaration
+Target not created
+Rebuild target 'Target 1'
+assembling ece353_main.s...
+ece353_main.s(26): warning: A1865W: '#' not seen before constant expression
+assembling startup_TM4C123.s...
+compiling system_TM4C123.c...
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(13): error:  #5: cannot open source input file "TM4C123.h": No such file or directory
+Target not created

@@ -1,0 +1,93 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Filename:     main.s 
+    2 00000000         ; Author:       ece353 staff 
+    3 00000000         ; Description:  
+    4 00000000         
+    5 00000000                 export           __main
+    6 00000000         
+    7 00000000         ;**********************************************
+    8 00000000         ; SRAM
+    9 00000000         ;**********************************************
+   10 00000000                 AREA             SRAM, READWRITE
+   11 00000000                 align
+   12 00000000         
+   13 00000000         ;**********************************************
+   14 00000000         ; Constant Variables (FLASH) Segment
+   15 00000000         ;**********************************************
+   16 00000000                 AREA             FLASH, CODE, READONLY
+   17 00000000                 align
+   18 00000000         
+   19 00000000         ;ASCII_ARRAY DCB 'E' 
+   20 00000000         
+   21 00000000         ;**********************************************
+   22 00000000         ; Code (FLASH) Segment
+   23 00000000         ; main assembly program
+   24 00000000         ;**********************************************
+   25 00000000         __main  PROC
+   26 00000000 F04F 0065       MOV              R0, 'e'
+   27 00000004         ; DO NOT MODIFY ANTHING BELOW THIS LINE!!!    
+   28 00000004         
+   29 00000004         INFINITE_LOOP
+   30 00000004 E7FE            B                INFINITE_LOOP
+   31 00000006         
+   32 00000006                 ENDP
+   33 00000006 00 00           align
+   34 00000008         
+   35 00000008         
+   36 00000008                 END
+Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
+\ece353_main.d -o.\obj\ece353_main.o -IQ:\uVision4.5\ARM\RV31\Inc -IQ:\uVision4
+.5\ARM\CMSIS\Include --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1
+" --list=.\lst\ece353_main.lst ece353_main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+SRAM 00000000
+
+Symbol: SRAM
+   Definitions
+      At line 10 in file ece353_main.s
+   Uses
+      None
+Comment: SRAM unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 16 in file ece353_main.s
+   Uses
+      None
+Comment: FLASH unused
+INFINITE_LOOP 00000004
+
+Symbol: INFINITE_LOOP
+   Definitions
+      At line 29 in file ece353_main.s
+   Uses
+      At line 30 in file ece353_main.s
+Comment: INFINITE_LOOP used once
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 25 in file ece353_main.s
+   Uses
+      At line 5 in file ece353_main.s
+Comment: __main used once
+3 symbols
+337 symbols in table

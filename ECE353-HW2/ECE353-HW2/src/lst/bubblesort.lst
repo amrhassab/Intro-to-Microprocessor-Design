@@ -1,0 +1,154 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 export           bubble_sort
+    2 00000000         
+    3 00000000                 AREA             FLASH, CODE, READONLY
+    4 00000000                 ALIGN
+    5 00000000         
+    6 00000000         ;*******************************************************
+                       ***********************
+    7 00000000         ; Description
+    8 00000000         ;   Uses Bubble Sort to sort an array of unsigned 32-bit
+                        numbers.  Prior to 
+    9 00000000         ;   returning, call the function verifyArray to verify t
+                       hat your array was sorted
+   10 00000000         ;   correctly.
+   11 00000000         
+   12 00000000         ; Parameters
+   13 00000000         ;   R0 - Array Address
+   14 00000000         ;   R1 - Array Size
+   15 00000000         ;*******************************************************
+                       ***********************
+   16 00000000         bubble_sort
+                               PROC
+   17 00000000         
+   18 00000000         ; Save registers
+   19 00000000 B530            PUSH             {R4, R5, LR}
+   20 00000002         
+   21 00000002         
+   22 00000002         ; R2 Current Byte Address
+   23 00000002         ; R3 Innter loop index
+   24 00000002         ; R4 num at lower index
+   25 00000002         ; R5 num at higher index
+   26 00000002         
+   27 00000002         ; We only need N-1 Outer Loops
+   28 00000002 1E49            SUBS             R1, R1, #1
+   29 00000004         
+   30 00000004         outter_start
+   31 00000004 DD10            BLE              end_bubble_sort
+   32 00000006         
+   33 00000006         ; Set the inner index to zero.  Loop until R3 == R1
+   34 00000006 F04F 0300       MOV              R3, #0
+   35 0000000A         
+   36 0000000A         inner_start
+   37 0000000A         ; Check to see if we teminate the inner loop
+   38 0000000A 4299            CMP              R1, R3
+   39 0000000C D00A            BEQ              inner_end
+   40 0000000E         
+   41 0000000E         ; Calculate address of the current unsigned 32-bit numbe
+                       r
+   42 0000000E EB00 0283       ADD              R2, R0, R3, LSL #2
+   43 00000012         
+   44 00000012         ; See if we need to swap the values
+   45 00000012 6814            LDR              R4, [R2]
+   46 00000014 6855            LDR              R5, [R2, #4]
+   47 00000016 42AC            CMP              R4, R5
+   48 00000018 BF84 6054       STRHI            R4, [R2, #4]
+   49 0000001C 6015            STRHI            R5, [R2]
+   50 0000001E         
+   51 0000001E         ; Increment the index
+   52 0000001E F103 0301       ADD              R3, R3, #1
+   53 00000022         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   54 00000022         ; Branch to the start of the inner loop
+   55 00000022 E7F2            B                inner_start
+   56 00000024         inner_end
+   57 00000024         
+   58 00000024         
+   59 00000024         ; Decrement loop count
+   60 00000024 1E49            SUBS             R1, R1, #1
+   61 00000026         
+   62 00000026         ; Branch to the start of the outter loop
+   63 00000026 E7ED            B                outter_start
+   64 00000028         
+   65 00000028         end_bubble_sort
+   66 00000028         
+   67 00000028         ; Restore Registers
+   68 00000028 E8BD 4030       POP              {R4, R5, LR}
+   69 0000002C         
+   70 0000002C         ; Return from the function
+   71 0000002C 4770            BX               LR
+   72 0000002E         
+   73 0000002E                 ENDP
+   74 0000002E         
+   75 0000002E                 END
+Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
+\bubblesort.d -o.\obj\bubblesort.o -I"I:\my docs\ECE 353\ECE353-HW2\ECE353-HW2\
+src\RTE" -IC:\AppV\mdk_510\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\AppV\mdk
+_510\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123 --predefine="__EVAL SE
+TA 1" --predefine="__MICROLIB SETA 1" --list=.\lst\bubblesort.lst bubbleSort.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 3 in file bubbleSort.s
+   Uses
+      None
+Comment: FLASH unused
+bubble_sort 00000000
+
+Symbol: bubble_sort
+   Definitions
+      At line 16 in file bubbleSort.s
+   Uses
+      At line 1 in file bubbleSort.s
+Comment: bubble_sort used once
+end_bubble_sort 00000028
+
+Symbol: end_bubble_sort
+   Definitions
+      At line 65 in file bubbleSort.s
+   Uses
+      At line 31 in file bubbleSort.s
+Comment: end_bubble_sort used once
+inner_end 00000024
+
+Symbol: inner_end
+   Definitions
+      At line 56 in file bubbleSort.s
+   Uses
+      At line 39 in file bubbleSort.s
+Comment: inner_end used once
+inner_start 0000000A
+
+Symbol: inner_start
+   Definitions
+      At line 36 in file bubbleSort.s
+   Uses
+      At line 55 in file bubbleSort.s
+Comment: inner_start used once
+outter_start 00000004
+
+Symbol: outter_start
+   Definitions
+      At line 30 in file bubbleSort.s
+   Uses
+      At line 63 in file bubbleSort.s
+Comment: outter_start used once
+6 symbols
+339 symbols in table

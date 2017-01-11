@@ -1,0 +1,2 @@
+Dependencies for Project 'ece353_base_project', Target 'Target 1': (DO NOT MODIFY !)
+F (.\ece353_main.s)(0x54CFF10E)(--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" --debug-I C:\AppV\mdk_510\ARM\RV31\INC-I C:\AppV\mdk_510\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include-I C:\AppV\mdk_510\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123--list .\lst\ece353_main.lst --xref -o .\obj\ece353_main.o --depend .\obj\ece353_main.d)

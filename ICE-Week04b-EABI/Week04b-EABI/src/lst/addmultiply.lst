@@ -1,0 +1,181 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Filename:     addMultiply.s 
+    2 00000000         ; Author:       ece353 staff 
+    3 00000000         ; Description:  
+    4 00000000         
+    5 00000000                 export           addMultiply
+    6 00000000         
+    7 00000000         ;**********************************************
+    8 00000000         ; SRAM
+    9 00000000         ;**********************************************
+   10 00000000                 AREA             SRAM, READWRITE
+   11 00000000                 align
+   12 00000000         
+   13 00000000         ;**********************************************
+   14 00000000         ; Constant Variables (FLASH) Segment
+   15 00000000         ;**********************************************
+   16 00000000                 AREA             FLASH, CODE, READONLY
+   17 00000000                 align
+   18 00000000         
+   19 00000000         
+   20 00000000         ;**********************************************
+   21 00000000         ; Four arrays of 8-bit signed numbers are 
+   22 00000000         ; passed via the ; first four paramters.
+   23 00000000         ; The 5th paramter indicates the length of the
+   24 00000000         ; arrays. For each entry in the array, the
+   25 00000000         ; following operation takes place.
+   26 00000000         ;
+   27 00000000         ; Array3[i] = (Array0[i] + Array1[i]) * Array2[i]
+   28 00000000         ;
+   29 00000000         ; Parameter 0       Array Address 0
+   30 00000000         ; Parameter 1       Array Address 1
+   31 00000000         ; Parameter 2       Array Address 2
+   32 00000000         ; Parameter 3       Array Address 3
+   33 00000000         ; Parameter 4       Array Size 
+   34 00000000         ;
+   35 00000000         ; Returns
+   36 00000000         ;   if ALL parameters are valid, return 0
+   37 00000000         ;   else return -1.
+   38 00000000         ;
+   39 00000000         ;  An address is valid if it is non zero
+   40 00000000         ;  The size is valid if it is greater than zero
+   41 00000000         ;**********************************************
+   42 00000000         addMultiply
+                               PROC
+   43 00000000         ; Save required registers
+   44 00000000 E92D 01F0       PUSH{R4-R8}                  ;
+   45 00000004         
+   46 00000004         ; Validate Parameters
+   47 00000004 9C05            LDR              R4, [ SP, #20]
+   48 00000006         
+   49 00000006 2800            CMP              R0, #0
+   50 00000008 D01C            BEQ              ERROR
+   51 0000000A 2900            CMP              R1, #0
+   52 0000000C D01A            BEQ              ERROR
+   53 0000000E 2A00            CMP              R2, #0
+   54 00000010 D018            BEQ              ERROR
+   55 00000012 2B00            CMP              R3, #0
+   56 00000014 D016            BEQ              ERROR
+   57 00000016         
+   58 00000016 2C00            CMP              R4, #0
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   59 00000018 DB14            BLT              ERROR
+   60 0000001A         
+   61 0000001A         
+   62 0000001A         
+   63 0000001A         
+   64 0000001A         
+   65 0000001A         ; For each index in the arrays, compute  
+   66 0000001A         ; Array3[i] = (Array0[i] + Array1[i]) * Array2[i]
+   67 0000001A         
+   68 0000001A         FOR_START
+   69 0000001A         
+   70 0000001A F810 5B01       LDRB             R5, [ R0 ], #1
+   71 0000001E F811 6B01       LDRB             R6, [ R1 ], #1
+   72 00000022 F812 7B01       LDRB             R7, [ R2 ], #1
+   73 00000026 EB05 0806       ADD              R8, R5, R6
+   74 0000002A FB08 F807       MUL              R8, R8, R7
+   75 0000002E F803 8B01       STRB             R8, [R3], #1
+   76 00000032 F1A4 0401       SUB              R4, R4, #1
+   77 00000036 2C00            CMP              R4, #0
+   78 00000038 D1EF            BNE              FOR_START
+   79 0000003A         
+   80 0000003A         
+   81 0000003A         
+   82 0000003A         
+   83 0000003A         ; Restore registers saved to the stack
+   84 0000003A E8BD 01F0       POP{R4-R8}
+   85 0000003E         ; Return from the loop
+   86 0000003E F04F 0000       MOV              R0, #0
+   87 00000042         
+   88 00000042 4770            BX               LR
+   89 00000044         
+   90 00000044         ERROR
+   91 00000044 BF08 F04F 
+              30FF             MOVEQ            R0, #-1
+   92 0000004A         
+   93 0000004A 4770            BX               LR
+   94 0000004C         
+   95 0000004C                 ENDP
+   96 0000004C         
+   97 0000004C         
+   98 0000004C         
+   99 0000004C                 align
+  100 0000004C         
+  101 0000004C         
+  102 0000004C                 END
+Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
+\addmultiply.d -o.\obj\addmultiply.o -I"I:\my docs\ECE 353\ICE-Week04b-EABI\Wee
+k04b-EABI\src\RTE" -IC:\AppV\mdk_510\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC
+:\AppV\mdk_510\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123 --predefine=
+"__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --list=.\lst\addmultiply.lst ad
+dMultiply.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+SRAM 00000000
+
+Symbol: SRAM
+   Definitions
+      At line 10 in file addMultiply.s
+   Uses
+      None
+Comment: SRAM unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+ERROR 00000044
+
+Symbol: ERROR
+   Definitions
+      At line 90 in file addMultiply.s
+   Uses
+      At line 50 in file addMultiply.s
+      At line 52 in file addMultiply.s
+      At line 54 in file addMultiply.s
+      At line 56 in file addMultiply.s
+      At line 59 in file addMultiply.s
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 16 in file addMultiply.s
+   Uses
+      None
+Comment: FLASH unused
+FOR_START 0000001A
+
+Symbol: FOR_START
+   Definitions
+      At line 68 in file addMultiply.s
+   Uses
+      At line 78 in file addMultiply.s
+Comment: FOR_START used once
+addMultiply 00000000
+
+Symbol: addMultiply
+   Definitions
+      At line 42 in file addMultiply.s
+   Uses
+      At line 5 in file addMultiply.s
+Comment: addMultiply used once
+4 symbols
+338 symbols in table

@@ -1,0 +1,10 @@
+Product: MDK-ARM Lite 5.10
+Component: ARM Compiler 5.04 update 1 (build 49)
+Tool: armlink [5040049]
+
+==============================================================================
+
+Section Cross References
+
+    ece353_main.o(FLASH) refers to ece353_main.o(SRAM) for DEST_ARRAY
+

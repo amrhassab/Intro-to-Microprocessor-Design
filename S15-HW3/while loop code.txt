@@ -1,0 +1,149 @@
+	
+		//printf("here\n");
+		/* end of part 3-c needs to be done first */
+		
+		// when sysTick generates an interrupt		
+		if( Alert_1ms == true ) {
+			// ADC sequence should be initiated
+			Alert_1ms = false; // resetting boolean
+		
+			get_adc_values( ADC0_BASE, &x_data, &y_data, &pot_data);
+			printf("X Dir value : %03x        Y Dir value : %03x      pot value : %03x\r",x_data, y_data, pot_data);
+			
+			/* d. UP Button */
+			up_button_data = GPIOF->DATA; // collecting sample from UP_BUTTON
+		
+			if ((up_button_data & PUSH_BUTTON_UP_PIN) == 0)
+				counter_up_button++;
+			else
+				counter_up_button = 0;
+			
+			if (counter_up_button == 16 && toggle == false) {
+				printf(" speaker off ");
+				GPIOB->DATA = 0;
+				stop_timer0A();
+				stop_timer0B();
+				toggle = true;
+			}
+			if (counter_up_button == 16 && toggle == true) {
+				initial = true;
+				toggle = false;
+			}
+		}
+				
+		/****  Functional Description  *****/
+	
+		/* a. PS2 Joystick */
+		
+		// determining frequency //
+		
+		if ( y_data < 0x333){ 
+			// y < 20% freq. = 1.0 khz
+			ticks_period = 50000;
+			
+		} else if ( y_data >= 0x333 && y_data < 0x4cc ){
+			// 20% <= y < 30%  freq = 1.5 khz
+			ticks_period = 33333;		
+			
+		} else if ( y_data >= 0x4cc && y_data < 0x666 ){
+			//  30% <= y < 40%  freq = 2.0 khz
+			ticks_period = 25000;
+			
+		} else if ( y_data >= 0x666 && y_data < 0x7ff ){
+			// 40% <= y < 50%  freq = 2.5 khz
+			ticks_period = 20000;
+			
+		} else if ( y_data >= 0x7ff && y_data < 0x999 ){
+			// 50% <= y < 60%  freq = 3.0 khz
+			ticks_period = 16667;
+			
+		} else if ( y_data >= 0x999 && y_data < 0xb32 ){
+			// 60% <= y < 70%  freq = 3.5 khz
+			ticks_period = 14286;
+			
+		} else if ( y_data >= 0xb32 && y_data < 0xccc ){
+			// 70% <= y < 800%  freq = 4.0 khz
+			ticks_period = 12500;
+			
+		} else {
+			// y >=  80%  freq = 4.5 khz
+			ticks_period = 11111;
+		}
+		
+		// determining duty cycle //
+			
+		if ( x_data < 0x333){ 
+			// x < 20%  duty = 25%
+			ticks_high = ticks_period * .25;
+		} else if ( x_data >= 0x333 && x_data < 0xccc ){
+			// 20% <= x < 80%  duty  = 33%
+			ticks_high = ticks_period * .33;		
+		} else {
+			// x >=  80%  duty = 50%
+			ticks_high = ticks_period * .5;	
+		}
+		
+		ticks_low = ticks_period - ticks_high;
+	
+    
+		/* b. Rotary Potentiometer */
+    
+		// determing volume */
+			
+		if ( pot_data < 0x266){ 
+			// pot. < 15%  DAC_0			
+			DAC_pin = DAC_GPIO_0;
+				
+		} else if ( pot_data >= 0x266 && pot_data < 0x4cc ){
+			// 15% <= pot. < 30% DAC_1 	
+			DAC_pin = DAC_GPIO_1;			
+		
+		} else if ( pot_data >= 0x4cc && pot_data < 0x732 ){
+			// 30% <= pot. < 45% DAC_2
+			DAC_pin = DAC_GPIO_2;
+		
+		} else if ( pot_data >= 0x732 && pot_data < 0x999 ){
+			// 45% <= pot. < 60% DAC_3 
+			DAC_pin = DAC_GPIO_3;	
+		
+		} else if ( pot_data >= 0x999 && pot_data < 0xbff ){
+			// 60% <= pot. < 75% DAC_4 
+			DAC_pin = DAC_GPIO_4;
+		
+		} else {
+			// pot. >= 75% DAC_5
+			DAC_pin = DAC_GPIO_5;				
+		}
+   
+	
+		/* c. timers */
+	
+		// initiates the the timer cycle for the first time and every time
+		// the sound is toggled back on.
+		if (initial == true) {
+			// enable A once
+			initial = false;
+			//printf(" intitial and up button loop, ticks_high: %d ", ticks_high);
+			start_timer0A(ticks_high); 	
+			GPIOB->DATA = DAC_pin;
+		}
+	
+		// when timer A generates an interrupt.
+		if ( Alert_Timer0A == true ) {
+		// disable A enable B
+			Alert_Timer0A = false; // resetting boolian
+			start_timer0B(ticks_low);
+			//printf(" timer A interrupt loop ");
+			GPIOB->DATA = 0;
+		}
+		
+		// when timer B generates an interupt
+		if (Alert_Timer0B == true) {
+		// disable B enable A
+			Alert_Timer0B = false; // resetting boolian
+			start_timer0A(ticks_high);
+			//printf(" timer b interrupt loop ");
+			GPIOB->DATA = DAC_pin;
+		}
+		
+	

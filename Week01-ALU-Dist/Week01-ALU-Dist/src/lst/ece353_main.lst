@@ -1,0 +1,150 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Filename:     main.s 
+    2 00000000         ; Author:       ece353 staff 
+    3 00000000         ; Description:  
+    4 00000000         
+    5 00000000                 export           __main
+    6 00000000         
+    7 00000000         ;**********************************************
+    8 00000000         ; SRAM
+    9 00000000         ;**********************************************
+   10 00000000                 AREA             SRAM, READWRITE
+   11 00000000                 align
+   12 00000000         
+   13 00000000         ;**********************************************
+   14 00000000         ; Constant Variables (FLASH) Segment
+   15 00000000         ;**********************************************
+   16 00000000                 AREA             FLASH, CODE, READONLY
+   17 00000000                 align
+   18 00000000         
+   19 00000000         ;**********************************************
+   20 00000000         ; Code (FLASH) Segment
+   21 00000000         ; main assembly program
+   22 00000000         ;**********************************************
+   23 00000000         __main  PROC
+   24 00000000         
+   25 00000000         ; DO NOT MODIFY ANTHING ABOVE THIS LINE!!! 
+   26 00000000         
+   27 00000000         
+   28 00000000         ; (1)
+   29 00000000         ; Initialize R1 to be 20 (decimal)
+   30 00000000 F04F 0114       MOV              R1, #20
+   31 00000004         ; (2)
+   32 00000004         ; Add 15 to R1 using an immediate
+   33 00000004 F101 010F       ADD              R1, R1, #15
+   34 00000008         ; (3)
+   35 00000008         ; Multiply R1 by 3
+   36 00000008 F04F 0303       MOV              R3, #3
+   37 0000000C FB01 F103       MUL              R1, R1, R3
+   38 00000010         
+   39 00000010         ; (4)
+   40 00000010         ; Clear (set to 0) bits 4:0 of R1
+   41 00000010         ; All other bits should not be affected
+   42 00000010 F021 011F       BIC              R1, R1, #0x1F
+   43 00000014         ; (5)
+   44 00000014         ; Set bits 31:25 and 21:16 of R1 to be a 1
+   45 00000014         ; All other bits should not be affected
+   46 00000014 F6CF 643F       MOVT             R4, #0xFE3F
+   47 00000018 EA41 0104       ORR              R1, R1, R4
+   48 0000001C         ; (6)
+   49 0000001C         ; Invert ONLY bits 3-9 of R1
+   50 0000001C F240 32F1       MOV              R2, #0x3F1
+   51 00000020 EA81 0102       EOR              R1, R1,R2
+   52 00000024         ; (7) 
+   53 00000024         ; Move the contents of R1 to R0
+   54 00000024 4608            MOV              R0, R1
+   55 00000026         ; (8) 
+   56 00000026         ; Total the bytes in R0 and place the results in R2
+   57 00000026         ; R2 = R0[31:24] + R0[23:16] + R0[15:8] + R0[7:0]
+   58 00000026         ; Treat each byte an an unsigned 8-bit number
+   59 00000026 F64F 7500 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+              F6CF 75FF        MOV32            R5, #0xFFFFFF00
+   60 0000002E EA21 0605       BIC              R6, R1, R5
+   61 00000032         
+   62 00000032 F46F 457F       MOV              R5, #0xFFFF00FF
+   63 00000036 EA21 0705       BIC              R7, R1, R5
+   64 0000003A EA4F 0797       LSR              R7, R7, #2
+   65 0000003E         
+   66 0000003E F46F 057F       MOV              R5, #0xFF00FFFF
+   67 00000042 EA21 0805       BIC              R8, R1, R5
+   68 00000046 EA4F 1818       LSR              R8, R8, #4
+   69 0000004A         
+   70 0000004A F06F 457F       MOV              R5, #0xFFFFFF
+   71 0000004E EA21 0905       BIC              R9, R1, R5
+   72 00000052 EA4F 1999       LSR              R9, R9, #6
+   73 00000056         
+   74 00000056 EB06 0207       ADD              R2, R6, R7
+   75 0000005A 4442            ADD              R2, R2, R8
+   76 0000005C 444A            ADD              R2, R2, R9
+   77 0000005E         
+   78 0000005E         ; DO NOT MODIFY ANTHING BELOW THIS LINE!!!
+   79 0000005E         
+   80 0000005E         INFINITE_LOOP
+   81 0000005E E7FE            B                INFINITE_LOOP
+   82 00000060                 ENDP
+   83 00000060                 align
+   84 00000060         
+   85 00000060         
+   86 00000060                 END
+Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
+\ece353_main.d -o.\obj\ece353_main.o -IQ:\uVision4.5\ARM\RV31\Inc -IQ:\uVision4
+.5\ARM\CMSIS\Include --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1
+" --list=.\lst\ece353_main.lst ece353_main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+SRAM 00000000
+
+Symbol: SRAM
+   Definitions
+      At line 10 in file ece353_main.s
+   Uses
+      None
+Comment: SRAM unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 16 in file ece353_main.s
+   Uses
+      None
+Comment: FLASH unused
+INFINITE_LOOP 0000005E
+
+Symbol: INFINITE_LOOP
+   Definitions
+      At line 80 in file ece353_main.s
+   Uses
+      At line 81 in file ece353_main.s
+Comment: INFINITE_LOOP used once
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 23 in file ece353_main.s
+   Uses
+      At line 5 in file ece353_main.s
+Comment: __main used once
+3 symbols
+337 symbols in table

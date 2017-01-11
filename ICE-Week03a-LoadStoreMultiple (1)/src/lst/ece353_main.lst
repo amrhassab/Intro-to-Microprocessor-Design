@@ -1,0 +1,391 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Filename:     main.s 
+    2 00000000         ; Author:       ece353 staff 
+    3 00000000         ; Description:  
+    4 00000000         
+    5 00000000                 export           __main
+    6 00000000         
+    7 00000000         
+    8 00000000 00000004 
+                       WORD    EQU              4
+    9 00000000         ;**********************************************
+   10 00000000         ; SRAM
+   11 00000000         ;**********************************************
+   12 00000000                 AREA             SRAM, READWRITE
+   13 00000000 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00       DEST_ARRAY
+                               SPACE            16*WORD
+   14 00000040 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00       DEST2_ARRAY
+                               SPACE            16*WORD
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   15 00000080 00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00 00 
+              00 00    DEST3_ARRAY
+                               SPACE            32*WORD
+   16 00000100                 align
+   17 00000100         
+   18 00000100         ;**********************************************
+   19 00000100         ; Constant Variables (FLASH) Segment
+   20 00000100         ;**********************************************
+   21 00000100                 AREA             FLASH, CODE, READONLY
+   22 00000000 00000000 
+                       SRC_ARRAY
+                               DCD              0x00000000
+   23 00000004 00001111        DCD              0x00001111
+   24 00000008 00002222        DCD              0x00002222
+   25 0000000C 00003333        DCD              0x00003333
+   26 00000010 00004444        DCD              0x00004444
+   27 00000014 00005555        DCD              0x00005555
+   28 00000018 00006666        DCD              0x00006666
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   29 0000001C 00007777        DCD              0x00007777
+   30 00000020 00008888        DCD              0x00008888
+   31 00000024 0000BBBB        DCD              0x0000BBBB
+   32 00000028 0000CCCC        DCD              0x0000CCCC
+   33 0000002C 0000DDDD        DCD              0x0000DDDD
+   34 00000030 0000EEEE        DCD              0x0000EEEE
+   35 00000034 0000FFFF        DCD              0x0000FFFF
+   36 00000038 11110000        DCD              0x11110000
+   37 0000003C 11111111        DCD              0x11111111
+   38 00000040 11112222        DCD              0x11112222
+   39 00000044 11113333        DCD              0x11113333
+   40 00000048 11114444        DCD              0x11114444
+   41 0000004C 11115555        DCD              0x11115555
+   42 00000050 11116666        DCD              0x11116666
+   43 00000054 11117777        DCD              0x11117777
+   44 00000058 11118888        DCD              0x11118888
+   45 0000005C 1111BBBB        DCD              0x1111BBBB
+   46 00000060 1111CCCC        DCD              0x1111CCCC
+   47 00000064 1111DDDD        DCD              0x1111DDDD
+   48 00000068 1111EEEE        DCD              0x1111EEEE
+   49 0000006C 1111FFFF        DCD              0x1111FFFF
+   50 00000070                 align
+   51 00000070         
+   52 00000070         ;**********************************************
+   53 00000070         ; Code (FLASH) Segment
+   54 00000070         ; main assembly program
+   55 00000070         ;**********************************************
+   56 00000070         __main  PROC
+   57 00000070         
+   58 00000070         ; Load the address of SRC_ARRAY into R0
+   59 00000070 4815            LDR              R0, =(SRC_ARRAY) ;
+   60 00000072         
+   61 00000072         ; Load the address of DEST_ARRAY into R1
+   62 00000072 4916            LDR              R1, =(DEST_ARRAY) ;
+   63 00000074         
+   64 00000074         ; Load the address of DEST2_ARRAY into R2
+   65 00000074 4A16            LDR              R2, =(DEST2_ARRAY) ;
+   66 00000076         
+   67 00000076         ; Using LDM, load the first 8 WORDs in SRC_ARRAY
+   68 00000076         ; Use Registers R3-R10 as the destination 
+   69 00000076         ; of the LDM instruction
+   70 00000076 E890 07F8       LDM              R0, {R3-R10} ;
+   71 0000007A         
+   72 0000007A         ; Use STM to store R3-R10 to DEST_ARRAY
+   73 0000007A E881 07F8       STM              R1, {R3-R10}
+   74 0000007E         
+   75 0000007E         ; Use STM to store R3-R8 to DEST2_ARRAY
+   76 0000007E         ; Specify the order of the registers in
+   77 0000007E         ; revers order (STM R2, {R10, R9, R8, R7, R6, R5, R4, R3
+                       })
+   78 0000007E         ; Observe if the order of the registers changes
+   79 0000007E         ; how the data arranged in SRAM
+   80 0000007E E882 01F8       STM              R2, {R8, R7, R6, R5, R4, R3} ;
+   81 00000082         
+   82 00000082         
+   83 00000082         
+   84 00000082         ; Using LDM, load the second 8 WORDs in SRC_ARRAY
+   85 00000082         ; Use Registers R3-R10 as the destination 
+   86 00000082         ; of the LDM instruction.
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+   87 00000082         ; Hint, you will need to modify R0 so that
+   88 00000082         ; it contains the address of SRC_ARRAY[8]
+   89 00000082         
+   90 00000082         
+   91 00000082 F100 0020       ADD              R0, R0, #32 ; 4 bytes per word
+   92 00000086 E890 07F8       LDM              R0, {R3-R10} ;
+   93 0000008A         
+   94 0000008A         
+   95 0000008A         
+   96 0000008A         ; Use STM to store R3-R10 to DEST_ARRAY[8]
+   97 0000008A         ; Hint, you will need to modify R1 so that
+   98 0000008A         ; it contains the address of DEST_ARRAY[8]
+   99 0000008A         
+  100 0000008A F101 0120       ADD              R1, R1, #32 ;
+  101 0000008E E881 07F8       STM              R1, {R3-R10} ;
+  102 00000092         
+  103 00000092         
+  104 00000092         
+  105 00000092         ; Copy the contents of SRC_ARRAY to DEST2_ARRAY
+  106 00000092         ; 8 WORDs at a time using LDM/STM. This time use
+  107 00000092         ; the version of LDM/STM that updates the base address
+  108 00000092         ; Load the address of SRC_ARRAY into R0
+  109 00000092         
+  110 00000092 480D            LDR              R0, =(SRC_ARRAY) ;
+  111 00000094         
+  112 00000094 E8B0 07F8       LDM              R0!, {R3-R10} ;
+  113 00000098 E8A2 07F8       STM              R2!, {R3-R10} ;
+  114 0000009C         
+  115 0000009C E8B0 07F8       LDM              R0!, {R3-R10} ;
+  116 000000A0 E8A2 07F8       STM              R2!, {R3-R10} ;
+  117 000000A4         
+  118 000000A4 E8B0 07F8       LDM              R0!, {R3-R10} ;
+  119 000000A8 E8A2 07F8       STM              R2!, {R3-R10} ;
+  120 000000AC         
+  121 000000AC         ; cannot do 8 words here only 4 remaining
+  122 000000AC         
+  123 000000AC C878            LDM              R0!, {R3-R6}
+  124 000000AE C278            STM              R2!, {R3-R6}
+  125 000000B0         
+  126 000000B0 4805            LDR              R0, =(SRC_ARRAY) ;
+  127 000000B2         
+  128 000000B2         
+  129 000000B2         
+  130 000000B2         
+  131 000000B2         
+  132 000000B2         
+  133 000000B2         ; Write code that uses a loop to copies SRC_ARRAY
+  134 000000B2         ; to DEST3_ARRAY.  Each iteraction of the loop should
+  135 000000B2         ; copy 4 bytes of the array
+  136 000000B2         ; 
+  137 000000B2         ; for(i = 0; i < 8; i++)
+  138 000000B2         ; {
+  139 000000B2         ;       Copy 4 WORDs from SRC_ARRAY to DEST3_ARRAY
+  140 000000B2         ; }
+  141 000000B2         
+  142 000000B2 4B08            LDR              R3, =(DEST3_ARRAY) ;
+  143 000000B4         
+  144 000000B4 F04F 0807       MOV              R8, #7
+  145 000000B8 F1B8 0F07       CMP              R8, #7
+
+
+
+ARM Macro Assembler    Page 5 
+
+
+  146 000000BC         
+  147 000000BC BF1E F1A8 
+              0807             SUBNE            R8, R8, #7  ;
+  148 000000C2 C8F0            LDMNE            R0!, { R4-R7 } ;
+  149 000000C4 C3F0            STMNE            R3!, { R4-R7 } ;
+  150 000000C6         
+  151 000000C6         
+  152 000000C6         
+  153 000000C6         ; DO NOT MODIFY ANTHING BELOW THIS LINE!!!
+  154 000000C6         
+  155 000000C6         INFINITE_LOOP
+  156 000000C6 E7FE            B                INFINITE_LOOP
+  157 000000C8         
+  158 000000C8                 ENDP
+  159 000000C8                 align
+  160 000000C8         
+  161 000000C8         
+  162 000000C8                 END
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
+\ece353_main.d -o.\obj\ece353_main.o -IC:\AppV\mdk_510\ARM\RV31\INC -IC:\AppV\m
+dk_510\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\AppV\mdk_510\ARM\PACK\Keil\T
+M4C_DFP\1.0.0\Device\Include\TM4C123 --predefine="__EVAL SETA 1" --predefine="_
+_MICROLIB SETA 1" --list=.\lst\ece353_main.lst ece353_main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DEST2_ARRAY 00000040
+
+Symbol: DEST2_ARRAY
+   Definitions
+      At line 14 in file ece353_main.s
+   Uses
+      At line 65 in file ece353_main.s
+Comment: DEST2_ARRAY used once
+DEST3_ARRAY 00000080
+
+Symbol: DEST3_ARRAY
+   Definitions
+      At line 15 in file ece353_main.s
+   Uses
+      At line 142 in file ece353_main.s
+Comment: DEST3_ARRAY used once
+DEST_ARRAY 00000000
+
+Symbol: DEST_ARRAY
+   Definitions
+      At line 13 in file ece353_main.s
+   Uses
+      At line 62 in file ece353_main.s
+Comment: DEST_ARRAY used once
+SRAM 00000000
+
+Symbol: SRAM
+   Definitions
+      At line 12 in file ece353_main.s
+   Uses
+      None
+Comment: SRAM unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLASH 00000000
+
+Symbol: FLASH
+   Definitions
+      At line 21 in file ece353_main.s
+   Uses
+      None
+Comment: FLASH unused
+INFINITE_LOOP 000000C6
+
+Symbol: INFINITE_LOOP
+   Definitions
+      At line 155 in file ece353_main.s
+   Uses
+      At line 156 in file ece353_main.s
+Comment: INFINITE_LOOP used once
+SRC_ARRAY 00000000
+
+Symbol: SRC_ARRAY
+   Definitions
+      At line 22 in file ece353_main.s
+   Uses
+      At line 59 in file ece353_main.s
+      At line 110 in file ece353_main.s
+      At line 126 in file ece353_main.s
+
+__main 00000070
+
+Symbol: __main
+   Definitions
+      At line 56 in file ece353_main.s
+   Uses
+      At line 5 in file ece353_main.s
+Comment: __main used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+WORD 00000004
+
+Symbol: WORD
+   Definitions
+      At line 8 in file ece353_main.s
+   Uses
+      At line 13 in file ece353_main.s
+      At line 14 in file ece353_main.s
+      At line 15 in file ece353_main.s
+
+1 symbol
+344 symbols in table

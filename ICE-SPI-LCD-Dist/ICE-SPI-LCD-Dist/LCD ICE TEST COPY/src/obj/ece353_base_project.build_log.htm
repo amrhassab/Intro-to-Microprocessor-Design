@@ -1,0 +1,76 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+I:\my docs\ECE 353\ICE-SPI-LCD-Dist\ICE-SPI-LCD-Dist\LCD ICE TEST COPY\src\ICE-LCD.uvprojx
+Project File Date:  04/20/2015
+
+<h2>Output:</h2>
+Rebuild target 'ICE-LCD'
+compiling main.c...
+main.c(181): warning:  #177-D: variable "line" was declared but never referenced
+        uint8_t line;
+main.c(182): warning:  #177-D: variable "c" was declared but never referenced
+        char c;
+main.c(183): warning:  #177-D: variable "c_index" was declared but never referenced
+        uint8_t c_index;
+main.c(184): warning:  #177-D: variable "string" was declared but never referenced
+        char string[10] = "abcdefegHI";
+main.c: 4 warnings, 0 errors
+compiling boardUtil.c...
+compiling lcd.c...
+..\drivers\lcd.c(141): warning:  #177-D: function "dogs102_assert_reset" was declared but never referenced
+  __INLINE static void dogs102_assert_reset(void)
+..\drivers\lcd.c: 1 warning, 0 errors
+compiling spi.c...
+assembling startup_TM4C123.s...
+compiling system_TM4C123.c...
+linking...
+Program Size: Code=5196 RO-data=4632 RW-data=16 ZI-data=4288  
+".\obj\ece353_base_project.axf" - 0 Error(s), 5 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.4.1.1.pack
+                ARM::CMSIS:CORE:3.30.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 3.30.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.TM4C_DFP.1.0.0.pack
+                Keil::Device:Startup:1.0.0
+                Texas Instruments Tiva C Series Device Support and Examples
+   * Component: Startup Version: 1.0.0
+
+<h2>Collection of Component include folders:</h2>
+  I:\my docs\ECE 353\ICE-SPI-LCD-Dist\ICE-SPI-LCD-Dist\LCD ICE TEST COPY\src\RTE
+  C:\AppV\mdk_510\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include
+  C:\AppV\mdk_510\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:3.30.0
+      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
+
+   * Component: Keil::Device:Startup:1.0.0
+      Include file:  Device\Include\TM4C123\TM4C123.h
+      Source file:   Device\Source\ARM\startup_TM4C123.s
+      Source file:   Device\Source\system_TM4C123.c
+Load "I:\\my docs\\ECE 353\\ICE-SPI-LCD-Dist\\ICE-SPI-LCD-Dist\\LCD ICE TEST COPY\\src\\obj\\ece353_base_project.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Connection failed!, error code=&d
+Error: Flash Download failed  -  Target DLL has been cancelled
+Load "I:\\my docs\\ECE 353\\ICE-SPI-LCD-Dist\\ICE-SPI-LCD-Dist\\LCD ICE TEST COPY\\src\\obj\\ece353_base_project.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Connection failed!, error code=&d
+Error: Flash Download failed  -  Target DLL has been cancelled
+Load "I:\\my docs\\ECE 353\\ICE-SPI-LCD-Dist\\ICE-SPI-LCD-Dist\\LCD ICE TEST COPY\\src\\obj\\ece353_base_project.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+</pre>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+I:\my docs\ECE 353\ICE-Week03a-LoadStoreMultiple (1)\src\ece353_base_project.uvproj
+Project File Date:  02/02/2015
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+assembling ece353_main.s...
+assembling startup_TM4C123.s...
+compiling system_TM4C123.c...
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(13): error:  #5: cannot open source input file "TM4C123.h": No such file or directory
+Target not created
+Rebuild target 'Target 1'
+assembling ece353_main.s...
+assembling startup_TM4C123.s...
+compiling system_TM4C123.c...
+RTE\Device\TM4C123GH6PM\system_TM4C123.c(13): error:  #5: cannot open source input file "TM4C123.h": No such file or directory
+Target not created

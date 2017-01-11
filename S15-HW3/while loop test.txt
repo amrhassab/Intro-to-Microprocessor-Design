@@ -1,0 +1,11 @@
+i = 0;
+  start_timer0A(50000); 
+  while(1)
+  {
+		if (Alert_Timer0A){
+		i++;
+		printf("%d",i);
+		}
+		
+	
+	}	
