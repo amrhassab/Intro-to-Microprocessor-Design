@@ -8,3 +8,9 @@ This is intened for Alumni's including myself to brush up on material learned in
 
 Again: TUTORIALS DO NOT BELONG TO ME.
 
+
+TODO: 
+
+- cite various class partners in each excercize
+- review code for embedded systems jobs
+
